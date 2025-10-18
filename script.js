@@ -49,7 +49,7 @@ if (registerForm) {
     }
 
     // Optional: check against a correct password
-    const CORRECT_PASSWORD = "holmes2025"; // change to your desired password
+    const CORRECT_PASSWORD = "1895"; // change to your desired password
     if(password !== CORRECT_PASSWORD) {
       alert("Incorrect password. Try again.");
       return;
@@ -90,3 +90,4 @@ if (registerForm) {
     favicon.href = state ? 'assets/favicon1.ico' : 'assets/favicon2.ico';
   }, 500);
 })();
+
