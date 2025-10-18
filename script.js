@@ -4,9 +4,10 @@
 
 // NPC emails with delays (ms)
 const NPC_EMAILS = [
-  { delay: 0, sender: "Eleanor", message: "You shouldn’t have opened that door." },
-  { delay: 60000, sender: "Bellboy", message: "The walls remember." },
-  { delay: 120000, sender: "Doctor H", message: "The ledger is not empty." }
+  { delay: 0, sender: "ALiceINmurdercastle@chicago.org", message: "Where in the world am I? Ah, that's the great puzzle.I knew where I was this morning but I've changed a few times since then. Your curiouser and curiouser Alice!" },
+  { delay: 60000, sender: "ALiceINmurdercastle@chicago.org", message: "One can't believe impossible things. If I had a world of my own, everything would be nonsense- skeletons eating keys going through the trapdoors under rugs? We're all mad here." },
+  { delay: 120000, sender: "ALiceINmurdercastle@chicago.org", message: "I can't explain myself, sir. Because I'm not myself, you know... but if I were H.H.H... I could not help the fact that I was a murderer, no more than the poet can help the inspiration to sing, and I would wrote a poem about skeletons on my work-desk..." }
+  { delay: 600000, sender: "ALiceINmurdercastle@chicago.org", message: "I'm late, I'm late, for a very important date! and Oh dear! Oh dear! I shall be too late! Time only knows my prince, but Thou shall wait 10 minutes since! Tick-tock..!" }
 ];
 
 // Grab form elements
@@ -90,4 +91,5 @@ if (registerForm) {
     favicon.href = state ? 'assets/favicon1.ico' : 'assets/favicon2.ico';
   }, 500);
 })();
+
 
