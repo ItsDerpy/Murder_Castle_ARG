@@ -1,74 +1,92 @@
-// =============================
-// CONFIGURATION
-// =============================
-const correctPassword = "1896"; // password from ARG
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxFQ34_pcZKaFLBRaBFI6G7nigBe6gQMrXCaz2504WsS3nLU307l0BHVMUnN7hrDXoWYQ/exec"; // Replace with your URL
+// -----------------------------
+// Client-side ARG mail site logic
+// -----------------------------
 
-// Favicon images for hint animation
-const favicons = [
-  "assets/favicon1.ico",
-  "assets/favicon2.ico",
+// NPC emails with delays (ms)
+const NPC_EMAILS = [
+  { delay: 0, sender: "Eleanor", message: "You shouldn’t have opened that door." },
+  { delay: 60000, sender: "Bellboy", message: "The walls remember." },
+  { delay: 120000, sender: "Doctor H", message: "The ledger is not empty." }
 ];
-let faviconIndex = 0;
 
-// =============================
-// FAVICON ANIMATION (hint)
-// =============================
-function changeFavicon() {
-  const link = document.getElementById("favicon");
-  faviconIndex = (faviconIndex + 1) % favicons.length;
-  link.href = favicons[faviconIndex];
+// Grab form elements
+const registerForm = document.getElementById('registerForm');
+const qr = document.getElementById('qr');
+const messageEl = document.getElementById('message');
+
+// Hide QR by default
+if(qr) qr.style.display = 'none';
+
+// Function to show fake email
+function showFakeEmail(sender, message) {
+  alert(`From: ${sender}\n\n${message}`);
 }
-// Animate every 3 seconds
-setInterval(changeFavicon, 3000);
 
-// =============================
-// FORM SUBMISSION LOGIC
-// =============================
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-  e.preventDefault(); // Prevent page reload
+// Schedule fake NPC emails
+function scheduleNPCEmails() {
+  NPC_EMAILS.forEach(mail => {
+    setTimeout(() => {
+      showFakeEmail(mail.sender, mail.message);
+    }, mail.delay);
+  });
+}
 
-  const mail = document.getElementById("mail").value.trim();
-  const pass = document.getElementById("password").value.trim().toLowerCase();
-  const optIn = document.getElementById("optIn").checked;
-  const messageBox = document.getElementById("message");
+// -----------------------------
+// Registration form submission
+// -----------------------------
+if (registerForm) {
+  registerForm.addEventListener('submit', function(e){
+    e.preventDefault();
 
-  console.log("Form submit:", { mail, pass, optIn });
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const optIn = document.getElementById('optIn').checked;
 
-  // Basic validations
-  if (!mail) {
-    messageBox.innerText = "Please provide an email.";
-    return;
-  }
-  if (pass !== correctPassword) {
-    messageBox.innerText = "Access denied.";
-    return;
-  }
-  if (!optIn) {
-    messageBox.innerText = "You must opt-in to receive messages to continue. Please check the box.";
-    return;
-  }
+    // Check Mail & Password
+    if(!email || !password) {
+      alert("You must enter both Mail and Password to proceed.");
+      return;
+    }
 
-  // At this point: password correct AND opted-in
-  messageBox.innerText = "Access granted. Preparing your mailbox...";
-  document.getElementById("loginForm").style.display = "none";
-  document.getElementById("qr").style.display = "block";
+    // Optional: check against a correct password
+    const CORRECT_PASSWORD = "holmes2025"; // change to your desired password
+    if(password !== CORRECT_PASSWORD) {
+      alert("Incorrect password. Try again.");
+      return;
+    }
 
-  // Send email to Google Apps Script
-  try {
-    console.log("Posting to Apps Script:", GOOGLE_SCRIPT_URL);
-    const resp = await fetch(GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      mode: "cors", // Important to allow cross-origin
-      body: JSON.stringify({ email: mail }),
-      headers: { "Content-Type": "application/json" }
-    });
+    console.log(`Player email: ${email}, Password correct.`);
 
-    const text = await resp.text();
-    console.log("Apps Script response:", resp.status, text);
-  } catch (err) {
-    console.error("Error contacting Apps Script:", err);
-    messageBox.innerText = "Error registering your email. Try again later.";
-  }
-});
+    // QR appears immediately
+    if(qr) qr.style.display = 'block';
 
+    // If opted-in for real emails (WIP)
+    if(optIn) {
+      alert("Opt-in feature for real emails is Work In Progress. You will still see fake emails.");
+
+      // Placeholder for Apps Script call (future)
+      // Example:
+      // google.script.run.registerEmail(email, false);
+    } else {
+      // Start fake emails sequence if not opted-in
+      scheduleNPCEmails();
+    }
+
+    if(messageEl) messageEl.innerText = "Registration successful! QR code is now visible.";
+  });
+}
+
+// -----------------------------
+// Favicon animation (old method)
+// -----------------------------
+(function(){
+  const favicon = document.querySelector("link[rel*='icon']") || document.createElement('link');
+  favicon.rel = 'icon';
+  document.head.appendChild(favicon);
+  let state = false;
+  setInterval(() => {
+    state = !state;
+    // Alternate between two favicons or colors (replace URLs with your icons)
+    favicon.href = state ? 'assets/favicon1.ico' : 'assets/favicon2.ico';
+  }, 500);
+})();
