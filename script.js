@@ -2,7 +2,7 @@
 // CONFIGURATION
 // =============================
 const correctPassword = "1896"; // password from ARG
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwm2Fsceok2hdN2PSQR0AQD_y5TQWcTLA1MU0R2hhdWWDyU9R-ZzRmowrHixBEs1s-mpA/exec"; // Replace with your URL
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxFQ34_pcZKaFLBRaBFI6G7nigBe6gQMrXCaz2504WsS3nLU307l0BHVMUnN7hrDXoWYQ/exec"; // Replace with your URL
 
 // Favicon images for hint animation
 const favicons = [
@@ -71,3 +71,4 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     messageBox.innerText = "Error registering your email. Try again later.";
   }
 });
+
