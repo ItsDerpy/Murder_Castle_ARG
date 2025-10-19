@@ -1,6 +1,7 @@
 const form = document.getElementById("password-form");
 const qrContainer = document.getElementById("qr-container");
 const favicon = document.getElementById("favicon");
+const header = document.querySelector("h1"); // ← new line
 
 let faviconToggle = false;
 setInterval(() => {
@@ -78,6 +79,9 @@ form.addEventListener("submit", (e) => {
       "Thank you",
       `"At last, I'm free. Thank you for playing the demo, the game ends here for now."`
     );
+
+    // 🟢 Change header text
+    header.textContent = "THE GAME ENDS HERE, FOR NOW";
   } else {
     alert("Wrong password. Try again.");
   }
