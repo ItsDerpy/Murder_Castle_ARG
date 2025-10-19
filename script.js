@@ -1,68 +1,106 @@
-// ========== Dynamic Favicon ==========
-let angle = 0;
-const favicon = document.querySelector("link[rel='icon']");
+const form = document.getElementById("password-form");
+const qrContainer = document.getElementById("qr-container");
+const favicon = document.getElementById("favicon");
+
+let faviconToggle = false;
 setInterval(() => {
-  angle += 5;
-  favicon.style.transform = `rotate(${angle}deg)`;
-}, 200);
+  faviconToggle = !faviconToggle;
+  favicon.href = faviconToggle ? "assets/favicon2.ico" : "assets/favicon1.ico";
+}, 500);
 
-// ========== Password Logic ==========
-const form = document.getElementById('accessForm');
-const passwordInput = document.getElementById('password');
-const message = document.getElementById('message');
-const qrSection = document.getElementById('qrSection');
-const popupContainer = document.getElementById('popupContainer');
-
-// Predefined responses for each password
-const responses = {
-  "1895": { type: "qr", src: "assets/qr.png", message: "Access granted." },
-  "Alice": { type: "popup", texts: ["You shouldn’t be here.", "The walls have ears."] },
-  "D3v1l0fCh1cag0#34": { type: "popup", texts: ["He's watching.", "Look behind you."] }
-};
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const pw = passwordInput.value.trim().toLowerCase();
-
-  // Clear previous stuff
-  qrSection.style.display = "none";
-  popupContainer.innerHTML = "";
-  message.textContent = "";
-
-  if (responses[pw]) {
-    const r = responses[pw];
-
-    if (r.type === "qr") {
-      qrSection.style.display = "block";
-      document.getElementById('qr').src = r.src;
-      message.textContent = r.message;
-    } else if (r.type === "popup") {
-      r.texts.forEach((t, i) => {
-        setTimeout(() => spawnPopup(t), i * 2000);
-      });
-      message.textContent = "Incoming transmission...";
-    }
-
-  } else {
-    message.textContent = "Access Denied.";
-  }
-
-  passwordInput.value = "";
-});
-
-// ========== Fake Pop-Up Generator ==========
-function spawnPopup(text) {
+// --- POP-UP SYSTEM ---
+function showPopup(from, subject, text) {
   const popup = document.createElement("div");
-  popup.className = "popup";
-  popup.textContent = text;
-
-  const x = Math.random() * (window.innerWidth - 260);
-  const y = Math.random() * (window.innerHeight - 120);
-  popup.style.left = `${x}px`;
-  popup.style.top = `${y}px`;
-
+  popup.classList.add("popup");
+  popup.innerHTML = `
+    <div class="popup-header">
+      <strong>from:</strong> ${from}<br>
+      <strong>subject:</strong> ${subject}
+    </div>
+    <p>${text}</p>
+  `;
   document.body.appendChild(popup);
-
-  setTimeout(() => popup.remove(), 5000);
+  setTimeout(() => popup.remove(), 25000); // auto remove after 25s
 }
 
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const password = document.getElementById("password").value.trim();
+  qrContainer.classList.add("hidden");
+
+  if (password === "1895") {
+    qrContainer.classList.remove("hidden");
+    showPopup(
+      "ALiceINmurdercastle@chicago.org",
+      "Where in the world am I?",
+      `"Where in the world am I? Ah, that's the great puzzle.
+      I knew where I was this morning but I've changed a few times since then.
+      Your curiouser and curiouser Alice!"`
+    );
+
+    setTimeout(() => {
+      showPopup(
+        "ALiceINmurdercastle@chicago.org",
+        "I'm going slightly mad...",
+        `"One can't believe impossible things. 
+        If I had a world of my own, everything would be nonsense — skeletons eating keys going through the trapdoors under rugs?
+        We're all mad here."`
+      );
+    }, 60000);
+
+    setTimeout(() => {
+      showPopup(
+        "ALiceINmurdercastle@chicago.org",
+        "Skeletal poetry",
+        `"I can't explain myself, sir. Because I'm not myself, you know...
+        ...but if I were H.H.H...
+        I could not help the fact that I was a murderer, no more than the poet can help the inspiration to sing,
+        and I would wrote a poem about skeletons on my work-desk..."`
+      );
+    }, 360000);
+
+    setTimeout(() => {
+      showPopup(
+        "ALiceINmurdercastle@chicago.org",
+        "Sands of time",
+        `"I'm late, I'm late, for a very important date!
+        and 
+        Oh dear! Oh dear! I shall be too late!
+        Time only knows my prince, but
+        Thou shall wait 10 minutes since!
+        Tick-tock..!"`
+      );
+    }, 660000);
+
+  } else if (password === "D3v1l0fCh1cag0#34") {
+    showPopup(
+      "ALiceINmurdercastle@chicago.org",
+      "Thank you",
+      `"At last, I'm free. Thank you for playing the demo, the game ends here for now."`
+    );
+  } else {
+    alert("Wrong password. Try again.");
+  }
+});
+
+// --- STYLING FOR POPUPS ---
+const style = document.createElement('style');
+style.textContent = `
+.popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: black;
+  border: 2px solid #0f0;
+  color: #0f0;
+  padding: 15px;
+  max-width: 300px;
+  font-family: 'Courier New', monospace;
+  animation: fadeIn 0.5s ease-in;
+}
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+`;
+document.head.appendChild(style);
