@@ -29,7 +29,7 @@ form.addEventListener("submit", (e) => {
   const password = document.getElementById("password").value.trim();
   qrContainer.classList.add("hidden");
 
-  if (password === "1895") {
+  if (password === "1896") {
     qrContainer.classList.remove("hidden");
     showPopup(
       "ALiceINmurdercastle@chicago.org",
@@ -108,3 +108,4 @@ style.textContent = `
 }
 `;
 document.head.appendChild(style);
+
