@@ -1,31 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Murder Castle</title>
-  <link rel="icon" type="image/png" href="favicon1.ico" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon1.ico" id="favicon">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>THE GAME CONTINUES</h1>
-    <form id="accessForm">
-      <label for="password">Enter Access Key:</label>
-      <input type="password" id="password" required />
-      <button type="submit">Access</button>
+    <h1>Enter Password</h1>
+    <form id="password-form">
+      <input type="password" id="password" placeholder="Enter password..." required>
+      <button type="submit">Submit</button>
     </form>
-
-    <p id="message"></p>
-
-    <div id="qrSection" style="display: none;">
-      <img id="qr" src="assets/qr.png" alt="QR Code" />
+    <div id="qr-container" class="hidden">
+      <img src="assets/qr.png" alt="QR Code" id="qr-image">
     </div>
-
-    <div id="popupContainer"></div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
-
