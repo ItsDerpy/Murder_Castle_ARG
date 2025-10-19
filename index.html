@@ -1,111 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Murder Castle</title>
-  <style>
-    /* -------------------- */
-    /* Basic Styling */
-    /* -------------------- */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #eee;
-      padding: 30px;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    form {
-      max-width: 400px;
-      margin: 0 auto;
-      background: #222;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px #000;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      border-radius: 4px;
-      border: none;
-    }
-
-    input[type="checkbox"] {
-      margin-right: 8px;
-    }
-
-    button {
-      padding: 10px 20px;
-      cursor: pointer;
-      background-color: #444;
-      border: none;
-      border-radius: 4px;
-      color: #eee;
-      font-size: 16px;
-    }
-
-    button:hover {
-      background-color: #666;
-    }
-
-    #message {
-      text-align: center;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-
-    #qr {
-      display: block;
-      margin: 30px auto 0 auto;
-      width: 200px;
-      height: 200px;
-    }
-
-    /* Optional styling for fake email alerts can be improved later */
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Murder Castle Access</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>THE GAME CONTINUES</h1>
+  <div class="container">
+    <h1>Murder Castle Access Terminal</h1>
+    <form id="accessForm">
+      <label for="password">Enter Access Key:</label>
+      <input type="password" id="password" required />
+      <button type="submit">Access</button>
+    </form>
 
-  <form id="registerForm">
-    <label>
-      Mail:
-      <input type="email" id="email" placeholder="Enter your email" required>
-    </label>
+    <p id="message"></p>
 
-    <label>
-      Password:
-      <input type="password" id="password" placeholder="Enter password" required>
-    </label>
+    <div id="qrSection" style="display: none;">
+      <img id="qr" src="assets/qr.png" alt="QR Code" />
+    </div>
 
-    <label>
-      <input type="checkbox" id="optIn">
-      Opt-in for real emails (Work In Progress)
-    </label>
-
-    <button type="submit">Submit</button>
-  </form>
-
-  <div id="message"></div>
-
-  <!-- QR Code placeholder -->
-  <img id="qr" src="assets/qr.png" alt="QR Code">
+    <div id="popupContainer"></div>
+  </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-
-
