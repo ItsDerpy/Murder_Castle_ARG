@@ -15,9 +15,9 @@ const popupContainer = document.getElementById('popupContainer');
 
 // Predefined responses for each password
 const responses = {
-  "castle": { type: "qr", src: "assets/qr.png", message: "Access granted. Proceed to the next chamber." },
-  "elevator": { type: "popup", texts: ["You shouldn’t be here.", "The walls have ears."] },
-  "holmes": { type: "popup", texts: ["He's watching.", "Look behind you."] }
+  "1895": { type: "qr", src: "assets/qr.png", message: "Access granted." },
+  "Alice": { type: "popup", texts: ["You shouldn’t be here.", "The walls have ears."] },
+  "D3v1l0fCh1cag0#34": { type: "popup", texts: ["He's watching.", "Look behind you."] }
 };
 
 form.addEventListener('submit', (e) => {
@@ -65,3 +65,4 @@ function spawnPopup(text) {
 
   setTimeout(() => popup.remove(), 5000);
 }
+
